@@ -1,0 +1,37 @@
+[
+  {
+    "_id": "2016-new-year-talk-1",
+    "title": "どうなる？　今年のライブラリやAPI",
+    "body": "2016年のJS／CSS関連の技術は、どうなっていくのでしょうか。2015年を振り返りつつ、これからの技術を考えてみます。前編となる今回は、昨年流行ったライブラリや今年も残りそうなライブラリについてと、これからのWebAPIについてです。",
+    "authors": ["leader22", "kyosuke", "yomotsu", "soto", "ykhs", "tacamy", "y-maru"],
+    "tags": ["javascript", "library"]
+  },
+  {
+    "_id": "vertical-script-1",
+    "title": "縦書き実装の今",
+    "body": "本記事では、2015年11月末での、縦書きに関するCSSの実装状況とプロパティについて解説します。また、先日行ったCodeGridのWebアプリケーションのリニューアルでは、記事タイトルやナビゲーションなどで、一部縦書きを利用しています。",
+    "authors": ["geckotang"],
+    "tags": ["css"]
+  },
+  {
+    "_id": "devfest-asia-1",
+    "title": "DevFest.Asiaとは",
+    "body": "DevFest.Asiaは、シンガポールで開催された、開発者のお祭りです。10日以上に及ぶお祭りの期間中には、大小さまざまなミートアップが開催されており、その中にはCSSConf.AsiaとJSConf.Asiaも含まれています。",
+    "authors": ["nakajmg"],
+    "tags": ["event"]
+  },
+  {
+    "_id": "2015-dev-camp-yomotsu",
+    "title": "MMOゲームを作る",
+    "body": "10月初旬にピクセルグリッドの開発合宿*が、参加者8名で行われました。",
+    "authors": ["yomotsu"],
+    "tags": ["event", "webgl"]
+  },
+  {
+    "_id": "template-for-coding-1",
+    "title": "共通部分が多いHTML",
+    "body": "ピクセルグリッドでは、企業サイトのリニューアル案件やWebアプリケーションのフロント側の制作が主になっています。中でも、リニューアル案件では、ページの量産は行わず、量産のもととなるページのHTMLを作成しています。",
+    "authors": ["geckotang"],
+    "tags": ["html"]
+  }
+]
