@@ -5,8 +5,25 @@ const entryDB = require('./db/entry');
 const authorDB = require('./db/author');
 
 const $ref = falcor.Model.ref;
+const $atom = falcor.Model.atom;
+
+function wait(ms) {
+  return new Promise(done => setTimeout(done, ms));
+}
 
 const BaseRouter = Router.createClass([
+  {
+    route: 'entries.length',
+    get() {
+      return Promise.resolve()
+        .then(() => entryDB.init())
+        .then(db => db.allDocs({include_docs: true}))
+        .then(res => ({
+          path: ['entries', 'length'],
+          value: res.rows.length
+        }));
+    }
+  },
   {
     route: 'entries[{integers:indices}]',
     get(pathSet) {
@@ -27,19 +44,25 @@ const BaseRouter = Router.createClass([
     }
   },
   {
-    route: 'entriesById[{keys:ids}]["_id", "title", "body"]',
+    route: 'entriesById[{keys:ids}]["_id", "title", "body", "tags"]',
     get(pathSet) {
       const results = [];
       return Promise.all(pathSet.ids.map(id => {
         return Promise.resolve()
+          .then(() => wait(200))
           .then(() => entryDB.init())
           .then(db => db.get(id))
           .then(doc => {
             const fields = pathSet[2];
+            let value;
             return fields.map(field => {
+              value = doc[field];
+              if (field === 'tags') {
+                value = $atom(value);
+              }
               results.push({
                 path: ['entriesById', id, field],
-                value: doc[field]
+                value: value
               });
             });
           });
@@ -72,6 +95,7 @@ const BaseRouter = Router.createClass([
       const results = [];
       return Promise.all(pathSet.ids.map(id => {
         return Promise.resolve()
+          .then(() => wait(200))
           .then(() => authorDB.init())
           .then(db => db.get(id))
           .then(doc => {
