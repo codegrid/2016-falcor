@@ -4,7 +4,7 @@
 
 ## 使い方
 
-記事内の案内にブランチをチェックアウトして、`npm install`と`npm start`を実行します。
+記事内の案内にブランチをチェックアウトして、`npm install`と`npm start`を実行します。  
 ローカルでWebサーバーが立ち上がるのでこれをChromeなどのブラウザで開いてください。
 
 ```sh
@@ -24,11 +24,28 @@ env PORT=3333 npm start
 
 ### jsongraphブランチ
 
+[第2回 JSON Graph](https://app.codegrid.net/entry/falcor-2)の内容に対応したブランチです。
+
+このブランチをチェックアウトして`npm install`（まだしていなければ）、`npm start`でローカルのWebサーバーが立ち上がります。
+
 ```sh
 git checkout jsongraph
+npm install
 npm start
 ```
 
 `client.js`に、キャッシュを持った状態で初期化したFalcor Modelインスタンスと、コメントアウトした状態の`model.get(...)`のサンプルコードが置いてあります。
 
 これらのコメントを外してブラウザのコンソールで結果を確認したり、自分でコードを書き換えて動かしてみてください。
+
+### falcor-clientブランチ
+
+[第3回](https://app.codegrid.net/entry/falcor-3)の内容に対応したブランチです。
+
+このブランチをチェックアウトして`npm install`（まだしていなければ）、`npm start`でローカルのWebサーバーが立ち上がります。
+
+```sh
+git checkout falcor-client
+npm install
+npm start
+```
