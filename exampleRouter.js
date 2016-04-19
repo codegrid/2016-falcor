@@ -109,6 +109,60 @@ const BaseRouter = Router.createClass([
           });
       })).then(() => results);
     }
+  },
+  {
+    route: 'entriesById[{keys:ids}]["_id", "title", "body", "tags"]',
+    set(jsonGraph) {
+      const results = [];
+      const ids = Object.keys(jsonGraph.entriesById);
+      return Promise.resolve()
+        .then(() => entryDB.init())
+        .then(db => Promise.all(ids.map(id => {
+          const newValues = jsonGraph.entriesById[id];
+          return db.get(id)
+            .then(doc => {
+              Object.keys(newValues).forEach(field => {
+                doc[field] = newValues[field];
+              });
+              return db.put(doc);
+            })
+            .then(() => {
+              Object.keys(newValues).forEach(field => {
+                results.push({
+                  path: ['entriesById', id, field],
+                  value: newValues[field]
+                });
+              });
+            });
+        }))).then(() => results);
+    }
+  },
+  {
+    route: 'authorsById[{keys:ids}]["_id", "name"]',
+    set(jsonGraph) {
+      const results = [];
+      const ids = Object.keys(jsonGraph.authorsById);
+      return Promise.resolve()
+        .then(() => authorDB.init())
+        .then(db => Promise.all(ids.map(id => {
+          const newValues = jsonGraph.authorsById[id];
+          return db.get(id)
+            .then(doc => {
+              Object.keys(newValues).forEach(field => {
+                doc[field] = newValues[field];
+              });
+              return db.put(doc);
+            })
+            .then(() => {
+              Object.keys(newValues).forEach(field => {
+                results.push({
+                  path: ['authorsById', id, field],
+                  value: newValues[field]
+                });
+              });
+            });
+        }))).then(() => results);
+    }
   }
 ]);
 
