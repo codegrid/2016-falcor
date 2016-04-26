@@ -182,7 +182,14 @@ const BaseRouter = Router.createClass([
           };
         });
       })
-      .catch(err => console.log(err.message));
+      .then(results => {
+        results.push({
+          path: ['entries'],
+          invalidated: true
+        });
+        return results;
+      })
+      .catch(err => console.log(err.stack));
     }
   },
   {
@@ -201,7 +208,7 @@ const BaseRouter = Router.createClass([
             });
           });
       })))
-      .catch(err => console.log(err.message));
+      .catch(err => console.log(err.stack));
 
       return removingEntries.then(() => {
         results.push({
@@ -210,7 +217,7 @@ const BaseRouter = Router.createClass([
         });
         return results;
       })
-      .catch(err => console.log(err.message));
+      .catch(err => console.log(err.stack));
     }
   }
 ]);
