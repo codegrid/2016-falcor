@@ -163,6 +163,55 @@ const BaseRouter = Router.createClass([
             });
         }))).then(() => results);
     }
+  },
+  {
+    route: 'entries.add',
+    call(callPath, args) {
+      const fetchDB = entryDB.init();
+      const fetchLength = fetchDB.then(db => db.allDocs())
+                                 .then(res => res.total_rows);
+      const createEntries = fetchDB.then(db => db.bulkDocs(args));
+
+      return Promise.all([fetchLength, createEntries]).then(values => {
+        const beforeLength = values[0];
+        const results = values[1];
+        return results.map((result, index) => {
+          return {
+            path: ['entries', beforeLength + index],
+            value: $ref(['entriesById', result.id])
+          };
+        });
+      })
+      .catch(err => console.log(err.message));
+    }
+  },
+  {
+    route: 'entriesById[{keys:ids}].remove',
+    call(callPath) {
+      const results = [];
+      const ids = callPath.ids;
+      const fetchDB = entryDB.init();
+      const removingEntries = fetchDB.then(db => Promise.all(ids.map(id => {
+        return db.get(id)
+          .then(doc => db.remove(doc))
+          .then(() => {
+            results.push({
+              path: ['entriesById', id],
+              invalidated: true
+            });
+          });
+      })))
+      .catch(err => console.log(err.message));
+
+      return removingEntries.then(() => {
+        results.push({
+          path: ['entries'],
+          invalidated: true
+        });
+        return results;
+      })
+      .catch(err => console.log(err.message));
+    }
   }
 ]);
 

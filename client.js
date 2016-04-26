@@ -16,10 +16,12 @@ Falcor Modelを経由して次のJSONGraph構造を操作できます。
           "name" <著者名>
         }
       ]
-      "tags": [...<タグ>]
+      "tags": [...<タグ>],
+      "remove": function() {}
     },
     ...,
-    "legth": 6
+    "legth": 6,
+    "add": function() {}
   },
   "entriesById": {
     <記事ID>: {
